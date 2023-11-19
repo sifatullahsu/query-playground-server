@@ -16,3 +16,14 @@ export type IGetAll<T> = (data: IQueryMaker) => Promise<{
 export type IGetData<T> = (id: string) => Promise<T | null>
 
 export type ICreateData<T> = (data: T) => Promise<T | Partial<T>>
+
+export type ILanguage =
+  | 'English'
+  | 'Arabic'
+  | 'Mandarin'
+  | 'Hindi'
+  | 'Spanish'
+  | 'French'
+  | 'Russian'
+  | 'Portuguese'
+  | 'Bengali'
