@@ -1,6 +1,6 @@
 import { ICreateData, IGetAll, IGetData } from '../../../global/types'
 import { IUser } from './user.interface'
-import User from './user.model'
+import { User } from './user.model'
 
 const getAllData: IGetAll<IUser> = async ({ query, pagination, selector }) => {
   const { page, limit, skip, sort } = pagination
