@@ -1,7 +1,7 @@
 import { Model } from 'mongoose'
 
 export type ICategory = {
-  name: string
+  title: string
   slug: string
   image: string
 }

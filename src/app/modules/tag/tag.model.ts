@@ -4,7 +4,7 @@ import { ITag, ITagModel } from './tag.interface'
 
 const tagSchema = new Schema<ITag, ITagModel>(
   {
-    name: { type: String, required: true },
+    title: { type: String, required: true },
     slug: { type: String, default: ' ', required: true, unique: true }
   },
   {
@@ -13,7 +13,7 @@ const tagSchema = new Schema<ITag, ITagModel>(
 )
 
 tagSchema.pre('save', async function () {
-  this.slug = slugMaker(this.slug === ' ' ? this.name : this.slug)
+  this.slug = slugMaker(this.slug === ' ' ? this.title : this.slug)
 })
 
 export const Tag = model<ITag, ITagModel>('Tag', tagSchema)

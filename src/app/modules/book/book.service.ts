@@ -1,4 +1,5 @@
 import { ICreateData, IGetAll, IGetData } from '../../../global/types'
+import { User } from '../user/user.model'
 import { IBook } from './book.interface'
 import { Book } from './book.model'
 
@@ -23,6 +24,9 @@ const getData: IGetData<IBook> = async id => {
 }
 
 const createData: ICreateData<IBook> = async data => {
+  const seller = await User.findOne({ _id: data.seller, role: 'seller' })
+  if (!seller) throw new Error('Seller ID is not valid.')
+
   const result = await Book.create(data)
 
   return result

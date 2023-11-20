@@ -1,7 +1,7 @@
 import { Model } from 'mongoose'
 
 export type ITag = {
-  name: string
+  title: string
   slug: string
 }
 
