@@ -1,6 +1,6 @@
 import { IQueryMaker } from 'mongoose-query-maker'
 
-export type IRole = 'admin' | 'seller' | 'buyer'
+export type IRole = 'super_admin' | 'admin' | 'seller' | 'buyer'
 
 export type IMeta = {
   page: number
