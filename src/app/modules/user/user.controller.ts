@@ -42,8 +42,20 @@ const createData = catchAsync(async (req: Request, res: Response) => {
   })
 })
 
+const login = catchAsync(async (req: Request, res: Response) => {
+  const result = await service.login(req.body)
+
+  apiResponse<Partial<IUser>>(res, {
+    success: true,
+    status: httpStatus.OK,
+    message: 'User login successfull.',
+    data: result
+  })
+})
+
 export const UserController = {
   getAllData,
   getData,
-  createData
+  createData,
+  login
 }
