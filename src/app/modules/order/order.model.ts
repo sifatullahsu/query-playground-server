@@ -20,7 +20,8 @@ const bookSchema = new Schema<IOrder, IOrderModel>(
     transactionId: { type: String, required: true }
   },
   {
-    timestamps: true
+    timestamps: true,
+    versionKey: false
   }
 )
 

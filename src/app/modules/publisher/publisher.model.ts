@@ -9,7 +9,8 @@ const publisherSchema = new Schema<IPublisher, IPublisherModel>(
     image: { type: String, required: true }
   },
   {
-    timestamps: true
+    timestamps: true,
+    versionKey: false
   }
 )
 

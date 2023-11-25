@@ -5,7 +5,8 @@ import { createToken } from '../../../shared'
 import { IUser } from './user.interface'
 import { User } from './user.model'
 
-const getAllData: IGetAll<IUser> = async ({ query, pagination, selector }) => {
+const getAllData: IGetAll<IUser> = async queryMaker => {
+  const { query, pagination, selector } = queryMaker
   const { page, limit, skip, sort } = pagination
   const { select, populate } = selector
 
@@ -14,6 +15,7 @@ const getAllData: IGetAll<IUser> = async ({ query, pagination, selector }) => {
 
   return {
     meta: { page, limit, count },
+    queryMaker,
     result
   }
 }

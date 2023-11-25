@@ -9,7 +9,8 @@ const categorySchema = new Schema<ICategory, ICategoryModel>(
     image: { type: String, required: true }
   },
   {
-    timestamps: true
+    timestamps: true,
+    versionKey: false
   }
 )
 

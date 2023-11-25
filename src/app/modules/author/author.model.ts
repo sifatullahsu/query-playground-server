@@ -10,7 +10,8 @@ const authorSchema = new Schema<IAuthor, IAuthorModel>(
     about: { type: String, required: true }
   },
   {
-    timestamps: true
+    timestamps: true,
+    versionKey: false
   }
 )
 

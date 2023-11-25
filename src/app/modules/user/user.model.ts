@@ -12,7 +12,8 @@ const userSchema = new Schema<IUser, IUserModel>(
     role: { type: String, enum: xRole, required: true }
   },
   {
-    timestamps: true
+    timestamps: true,
+    versionKey: false
   }
 )
 

@@ -18,7 +18,8 @@ const bookSchema = new Schema<IBook, IBookModel>(
     seller: { type: Schema.Types.ObjectId, ref: 'User', required: true }
   },
   {
-    timestamps: true
+    timestamps: true,
+    versionKey: false
   }
 )
 

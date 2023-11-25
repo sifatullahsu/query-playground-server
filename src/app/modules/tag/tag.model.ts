@@ -8,7 +8,8 @@ const tagSchema = new Schema<ITag, ITagModel>(
     slug: { type: String, default: ' ', required: true, unique: true }
   },
   {
-    timestamps: true
+    timestamps: true,
+    versionKey: false
   }
 )
 

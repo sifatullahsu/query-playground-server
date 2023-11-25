@@ -2,7 +2,8 @@ import { ICreateData, IGetAll, IGetData } from '../../../global/types'
 import { IAuthor } from './author.interface'
 import { Author } from './author.model'
 
-const getAllData: IGetAll<IAuthor> = async ({ query, pagination, selector }) => {
+const getAllData: IGetAll<IAuthor> = async queryMaker => {
+  const { query, pagination, selector } = queryMaker
   const { page, limit, skip, sort } = pagination
   const { select, populate } = selector
 
@@ -11,6 +12,7 @@ const getAllData: IGetAll<IAuthor> = async ({ query, pagination, selector }) => 
 
   return {
     meta: { page, limit, count },
+    queryMaker,
     result
   }
 }

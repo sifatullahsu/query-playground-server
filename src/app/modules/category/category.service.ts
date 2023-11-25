@@ -2,7 +2,8 @@ import { ICreateData, IGetAll, IGetData } from '../../../global/types'
 import { ICategory } from './category.interface'
 import { Category } from './category.model'
 
-const getAllData: IGetAll<ICategory> = async ({ query, pagination, selector }) => {
+const getAllData: IGetAll<ICategory> = async queryMaker => {
+  const { query, pagination, selector } = queryMaker
   const { page, limit, skip, sort } = pagination
   const { select, populate } = selector
 
@@ -11,6 +12,7 @@ const getAllData: IGetAll<ICategory> = async ({ query, pagination, selector }) =
 
   return {
     meta: { page, limit, count },
+    queryMaker,
     result
   }
 }
