@@ -4,8 +4,8 @@ import { User } from '../user/user.model'
 import { IOrder } from './order.interface'
 import { Order } from './order.model'
 
-const getAllData: IGetAll<IOrder> = async queryMaker => {
-  const { query, pagination, selector } = queryMaker
+const getAllData: IGetAll<IOrder> = async queryResult => {
+  const { query, pagination, selector } = queryResult
   const { page, limit, skip, sort } = pagination
   const { select, populate } = selector
 
@@ -14,7 +14,7 @@ const getAllData: IGetAll<IOrder> = async queryMaker => {
 
   return {
     meta: { page, limit, count },
-    queryMaker,
+    queryResult,
     result
   }
 }

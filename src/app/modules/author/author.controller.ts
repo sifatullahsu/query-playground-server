@@ -9,14 +9,15 @@ import { AuthorService as service } from './author.service'
 
 const getAllData = catchAsync(async (req: Request, res: Response) => {
   const query = queryMaker(req.query, req.user, authorQuery, authorSelector)
-  const { result, meta } = await service.getAllData(query)
+  const { result, meta, queryResult } = await service.getAllData(query)
 
   apiResponse<IAuthor[]>(res, {
     success: true,
     status: httpStatus.OK,
     message: 'Authors fetched successfull.',
     data: result,
-    meta
+    meta,
+    queryResult
   })
 })
 

@@ -9,14 +9,15 @@ import { BookService as service } from './book.service'
 
 const getAllData = catchAsync(async (req: Request, res: Response) => {
   const query = queryMaker(req.query, req.user, bookQuery, bookSelector)
-  const { result, meta } = await service.getAllData(query)
+  const { result, meta, queryResult } = await service.getAllData(query)
 
   apiResponse<IBook[]>(res, {
     success: true,
     status: httpStatus.OK,
     message: 'Books fetched successfull.',
     data: result,
-    meta
+    meta,
+    queryResult
   })
 })
 

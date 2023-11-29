@@ -3,8 +3,8 @@ import { User } from '../user/user.model'
 import { IBook } from './book.interface'
 import { Book } from './book.model'
 
-const getAllData: IGetAll<IBook> = async queryMaker => {
-  const { query, pagination, selector } = queryMaker
+const getAllData: IGetAll<IBook> = async queryResult => {
+  const { query, pagination, selector } = queryResult
   const { page, limit, skip, sort } = pagination
   const { select, populate } = selector
 
@@ -13,7 +13,7 @@ const getAllData: IGetAll<IBook> = async queryMaker => {
 
   return {
     meta: { page, limit, count },
-    queryMaker,
+    queryResult,
     result
   }
 }

@@ -3,7 +3,7 @@ import { IRole } from '../../../global/types'
 import { IOrder } from './order.interface'
 
 export const orderQuery: IQueryMakerFields<IOrder, IRole> = {
-  all: 'OPEN',
+  all: ['admin'],
   filter: [
     [
       'book',
@@ -70,7 +70,7 @@ export const orderQuery: IQueryMakerFields<IOrder, IRole> = {
     ],
     [
       'bookInfo.tags',
-      ['$eq', '$ne'],
+      ['$in', '$nin'],
       [
         ['admin', 'OPEN'],
         ['seller', 'seller'],

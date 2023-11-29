@@ -6,7 +6,7 @@ type IApiReponse<T> = {
   success: boolean
   status: number
   message: string
-  queryMaker?: IQueryMaker
+  queryResult?: IQueryMaker
   meta?: IMeta
   data: T | null
 }
@@ -16,7 +16,7 @@ const apiResponse = <T>(res: Response, data: IApiReponse<T>): void => {
     success: data.success,
     status: data.status,
     message: data.message,
-    queryMaker: data?.queryMaker,
+    queryResult: data?.queryResult,
     meta: data?.meta && {
       page: data?.meta?.page,
       limit: data?.meta?.limit,

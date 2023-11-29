@@ -9,14 +9,15 @@ import { PublisherService as service } from './publisher.service'
 
 const getAllData = catchAsync(async (req: Request, res: Response) => {
   const query = queryMaker(req.query, req.user, publisherQuery, publisherSelector)
-  const { result, meta } = await service.getAllData(query)
+  const { result, meta, queryResult } = await service.getAllData(query)
 
   apiResponse<IPublisher[]>(res, {
     success: true,
     status: httpStatus.OK,
     message: 'Publishers fetched successfull.',
     data: result,
-    meta
+    meta,
+    queryResult
   })
 })
 

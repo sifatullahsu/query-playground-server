@@ -2,8 +2,8 @@ import { ICreateData, IGetAll, IGetData } from '../../../global/types'
 import { ITag } from './tag.interface'
 import { Tag } from './tag.model'
 
-const getAllData: IGetAll<ITag> = async queryMaker => {
-  const { query, pagination, selector } = queryMaker
+const getAllData: IGetAll<ITag> = async queryResult => {
+  const { query, pagination, selector } = queryResult
   const { page, limit, skip, sort } = pagination
   const { select, populate } = selector
 
@@ -12,7 +12,7 @@ const getAllData: IGetAll<ITag> = async queryMaker => {
 
   return {
     meta: { page, limit, count },
-    queryMaker,
+    queryResult,
     result
   }
 }

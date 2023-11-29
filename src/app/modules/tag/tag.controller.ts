@@ -9,14 +9,15 @@ import { TagService as service } from './tag.service'
 
 const getAllData = catchAsync(async (req: Request, res: Response) => {
   const query = queryMaker(req.query, req.user, publisherQuery, publisherSelector)
-  const { result, meta } = await service.getAllData(query)
+  const { result, meta, queryResult } = await service.getAllData(query)
 
   apiResponse<ITag[]>(res, {
     success: true,
     status: httpStatus.OK,
     message: 'Tags fetched successfull.',
     data: result,
-    meta
+    meta,
+    queryResult
   })
 })
 

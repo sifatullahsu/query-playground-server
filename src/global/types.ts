@@ -11,6 +11,7 @@ export type IMeta = {
 
 export type IGetAll<T> = (data: IQueryMaker) => Promise<{
   meta: IMeta
+  queryResult: IQueryMaker
   result: T[]
 }>
 

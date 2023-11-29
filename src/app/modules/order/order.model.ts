@@ -12,7 +12,7 @@ const bookSchema = new Schema<IOrder, IOrderModel>(
       author: { type: Schema.Types.ObjectId, ref: 'Author', required: true },
       publisher: { type: Schema.Types.ObjectId, ref: 'Publisher', required: true },
       category: { type: Schema.Types.ObjectId, ref: 'Category', required: true },
-      tags: [{ type: Schema.Types.ObjectId, ref: 'Tags', required: true }]
+      tags: [{ type: Schema.Types.ObjectId, ref: 'Tag', required: true }]
     },
     seller: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     buyer: { type: Schema.Types.ObjectId, ref: 'User', required: true },

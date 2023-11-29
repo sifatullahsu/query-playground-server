@@ -9,14 +9,15 @@ import { OrderService as service } from './order.service'
 
 const getAllData = catchAsync(async (req: Request, res: Response) => {
   const query = queryMaker(req.query, req.user, orderQuery, orderSelector)
-  const { result, meta } = await service.getAllData(query)
+  const { result, meta, queryResult } = await service.getAllData(query)
 
   apiResponse<IOrder[]>(res, {
     success: true,
     status: httpStatus.OK,
     message: 'Orders fetched successfull.',
     data: result,
-    meta
+    meta,
+    queryResult
   })
 })
 

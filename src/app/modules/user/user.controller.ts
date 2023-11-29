@@ -9,14 +9,15 @@ import { UserService as service } from './user.service'
 
 const getAllData = catchAsync(async (req: Request, res: Response) => {
   const query = queryMaker(req.query, req.user, userQuery, userSelector)
-  const { result, meta } = await service.getAllData(query)
+  const { result, meta, queryResult } = await service.getAllData(query)
 
   apiResponse<IUser[]>(res, {
     success: true,
     status: httpStatus.OK,
     message: 'Users fetched successfull.',
     data: result,
-    meta
+    meta,
+    queryResult
   })
 })
 
