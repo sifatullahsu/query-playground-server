@@ -5,7 +5,7 @@ import { ITag } from './tag.interface'
 export const publisherQuery: IQueryMakerFields<ITag, IRole> = {
   all: 'OPEN',
   filter: [
-    ['name', ['$regex'], 'OPEN'],
+    ['title', ['$regex'], 'OPEN'],
     ['slug', ['$eq', '$ne'], 'OPEN']
   ]
 }

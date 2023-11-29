@@ -5,7 +5,7 @@ import { ICategory } from './category.interface'
 export const publisherQuery: IQueryMakerFields<ICategory, IRole> = {
   all: 'OPEN',
   filter: [
-    ['name', ['$regex'], 'OPEN'],
+    ['title', ['$regex'], 'OPEN'],
     ['slug', ['$eq', '$ne'], 'OPEN'],
     ['image', ['$eq', '$ne'], 'OPEN']
   ]

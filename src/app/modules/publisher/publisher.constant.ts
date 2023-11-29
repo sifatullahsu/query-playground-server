@@ -5,7 +5,7 @@ import { IPublisher } from './publisher.interface'
 export const publisherQuery: IQueryMakerFields<IPublisher, IRole> = {
   all: 'OPEN',
   filter: [
-    ['name', ['$regex'], 'OPEN'],
+    ['title', ['$regex'], 'OPEN'],
     ['slug', ['$eq', '$ne'], 'OPEN'],
     ['image', ['$eq', '$ne'], 'OPEN']
   ]
