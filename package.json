@@ -32,7 +32,6 @@
     "express": "^4.18.2",
     "http-status": "^1.7.3",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.0.0",
-    "mongoose-query-maker": "^2.0.0"
+    "mongoose": "^8.0.0"
   }
 }

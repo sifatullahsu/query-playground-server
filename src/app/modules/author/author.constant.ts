@@ -5,7 +5,7 @@ import { IAuthor } from './author.interface'
 export const authorQuery: IQueryMakerFields<IAuthor, IRole> = {
   all: 'OPEN',
   filter: [
-    ['name', ['$regex'], 'OPEN'],
+    ['title', ['$regex'], 'OPEN'],
     ['slug', ['$eq', '$ne'], 'OPEN'],
     ['image', ['$eq', '$ne'], 'OPEN'],
     ['about', ['$regex'], 'OPEN']
