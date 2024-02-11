@@ -1,4 +1,4 @@
-import { ICreateData, IGetAll, IGetData } from '../../../global/types'
+import { ICreateData, IGetAll, IGetData } from '../../../interface/main'
 import { ITag } from './tag.interface'
 import { Tag } from './tag.model'
 
@@ -11,22 +11,19 @@ const getAllData: IGetAll<ITag> = async queryResult => {
 
   return {
     meta: { page, limit, count },
-    queryResult,
-    result
+    data: result
   }
 }
 
-const getData: IGetData<ITag> = async id => {
-  const query = { _id: id }
-  const result = await Tag.findOne(query)
+const getData: IGetData<ITag> = async (id, queryResult) => {
+  const { select, populate } = queryResult
+  const result = await Tag.findById(id, select, { populate })
 
-  return result
+  return { data: result }
 }
 
 const createData: ICreateData<ITag> = async data => {
-  const result = await Tag.create(data)
-
-  return result
+  return await Tag.create(data)
 }
 
 export const TagService = {

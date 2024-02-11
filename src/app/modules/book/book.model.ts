@@ -1,30 +1,22 @@
 import { Schema, model } from 'mongoose'
-import { xLanguage } from '../../../global/constant'
-import { slugMaker } from '../../../shared'
+import { ILanguage } from '../../../interface/main'
 import { IBook, IBookModel } from './book.interface'
+
+export const xLanguage: ILanguage[] = ['English', 'Arabic', 'Bengali', 'Hindi', 'Spanish']
 
 const bookSchema = new Schema<IBook, IBookModel>(
   {
     title: { type: String, required: true },
-    slug: { type: String, default: ' ', required: true, unique: true },
-    image: { type: String, required: true },
     price: { type: Number, required: true, min: 0 },
-    stock: { type: Number, required: true, min: 0 },
     language: { type: String, enum: xLanguage, required: true },
-    author: { type: Schema.Types.ObjectId, ref: 'Author', required: true },
-    publisher: { type: Schema.Types.ObjectId, ref: 'Publisher' },
-    category: { type: Schema.Types.ObjectId, ref: 'Category' },
-    tags: [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
-    seller: { type: Schema.Types.ObjectId, ref: 'User', required: true }
+    category_id: { type: Schema.Types.ObjectId, required: true, ref: 'Category' },
+    tag_ids: [{ type: Schema.Types.ObjectId, required: true, ref: 'Tag' }],
+    seller_id: { type: Schema.Types.ObjectId, required: true, ref: 'User' }
   },
   {
     timestamps: true,
     versionKey: false
   }
 )
-
-bookSchema.pre('save', async function () {
-  this.slug = slugMaker(this.slug === ' ' ? this.title : this.slug)
-})
 
 export const Book = model<IBook, IBookModel>('Book', bookSchema)

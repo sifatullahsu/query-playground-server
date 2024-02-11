@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { validateRole } from '../../middlewares'
+import { validateRole } from '../../middlewares/validateRole'
 import { FeedbackController as controller } from './feedback.controller'
 
 const router = Router()

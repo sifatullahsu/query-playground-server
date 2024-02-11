@@ -1,5 +1,5 @@
 import { Types } from 'mongoose'
-import { QueryMaker } from 'mongoose-query-maker'
+import { QueryMaker, QuerySelector } from 'mongoose-query-maker'
 
 export type IRole = 'super_admin' | 'admin' | 'seller' | 'buyer'
 
@@ -9,13 +9,12 @@ export type IMeta = {
   count: number
 }
 
-export type IGetAll<T> = (data: QueryMaker) => Promise<{
+export type IGetAll<T> = (queryResult: QueryMaker) => Promise<{
   meta: IMeta
-  queryResult: QueryMaker
-  result: T[]
+  data: T[]
 }>
 
-export type IGetData<T> = (id: string) => Promise<T | null>
+export type IGetData<T> = (id: string, queryResult: QuerySelector) => Promise<{ data: T | null }>
 
 export type ICreateData<T> = (data: T) => Promise<T | Partial<T>>
 
@@ -27,13 +26,4 @@ export type ILogin = (data: { email: string; password: string }) => Promise<{
   accessToken: string
 }>
 
-export type ILanguage =
-  | 'English'
-  | 'Arabic'
-  | 'Mandarin'
-  | 'Hindi'
-  | 'Spanish'
-  | 'French'
-  | 'Russian'
-  | 'Portuguese'
-  | 'Bengali'
+export type ILanguage = 'English' | 'Arabic' | 'Bengali' | 'Hindi' | 'Spanish'

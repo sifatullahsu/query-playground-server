@@ -1,5 +1,5 @@
 import { JwtPayload } from 'jsonwebtoken'
-import { IRole } from '../global/types'
+import { IRole } from './main'
 
 export type IJwtUser = JwtPayload & {
   _id: string

@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import config from '../../../config'
-import { ICreateData, IGetAll, IGetData, ILogin } from '../../../global/types'
-import { createToken } from '../../../shared'
+import { ICreateData, IGetAll, IGetData, ILogin } from '../../../interface/main'
 import { IUser } from './user.interface'
 import { User } from './user.model'
 
@@ -14,22 +13,19 @@ const getAllData: IGetAll<IUser> = async queryResult => {
 
   return {
     meta: { page, limit, count },
-    queryResult,
-    result
+    data: result
   }
 }
 
-const getData: IGetData<IUser> = async id => {
-  const query = { _id: id }
-  const result = await User.findOne(query)
+const getData: IGetData<IUser> = async (id, queryResult) => {
+  const { select, populate } = queryResult
+  const result = await User.findById(id, select, { populate })
 
-  return result
+  return { data: result }
 }
 
 const createData: ICreateData<IUser> = async data => {
-  const result = await User.create(data)
-
-  return result
+  return await User.create(data)
 }
 
 export const login: ILogin = async data => {
@@ -45,7 +41,7 @@ export const login: ILogin = async data => {
 
   // generate tokens
   const tokenData = { _id: userinfo._id, role: userinfo.role }
-  const accessToken = createToken(tokenData, config.jwt.secret!, config.jwt.expiresIn!)
+  const accessToken = User.createToken(tokenData, config.jwt.secret!, config.jwt.expiresIn!)
 
   const payload = {
     ...userinfo,

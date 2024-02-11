@@ -1,5 +1,6 @@
+import { JwtPayload, Secret } from 'jsonwebtoken'
 import { Model } from 'mongoose'
-import { IRole } from '../../../global/types'
+import { IRole } from '../../../interface/main'
 
 export type IUser = {
   name: string
@@ -11,4 +12,6 @@ export type IUser = {
 export type IUserModel = {
   hashGenerator(password: string): Promise<string>
   checkPassword(givenPassword: string, savedPassword: string): Promise<boolean>
+  createToken(paylod: Record<string, unknown>, secret: string, expireTime: string): string
+  verifyToken(token: string, secret: Secret): JwtPayload
 } & Model<IUser>

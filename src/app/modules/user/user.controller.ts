@@ -1,54 +1,48 @@
-import { Request, Response } from 'express'
-import httpStatus from 'http-status'
-import { queryMaker } from 'mongoose-query-maker'
-import apiResponse from '../../../shared/files/apiResponse'
-import catchAsync from '../../../shared/files/catchAsync'
-import { userAuthRules } from './user.constant'
-import { IUser } from './user.interface'
+import asyncHandler from 'express-async-handler'
+import { queryMaker, querySelector } from 'mongoose-query-maker'
+import { userAuthRules } from './user.rule'
 import { UserService as service } from './user.service'
 
-const getAllData = catchAsync(async (req: Request, res: Response) => {
-  const options = queryMaker(req.query, req.user, userAuthRules)
-  const { result, meta, queryResult } = await service.getAllData(options)
+const getAllData = asyncHandler(async (req, res) => {
+  const queryResult = queryMaker(req.query, req.user, userAuthRules)
+  const { meta, data } = await service.getAllData(queryResult)
 
-  apiResponse<IUser[]>(res, {
+  res.status(200).json({
     success: true,
-    status: httpStatus.OK,
     message: 'Users fetched successfull.',
-    data: result,
     meta,
+    data,
     queryResult
   })
 })
 
-const getData = catchAsync(async (req: Request, res: Response) => {
-  const result = await service.getData(req.params.id)
+const getData = asyncHandler(async (req, res) => {
+  const queryResult = querySelector(req.query, userAuthRules)
+  const { data } = await service.getData(req.params.id, queryResult)
 
-  apiResponse<IUser>(res, {
+  res.status(200).json({
     success: true,
-    status: httpStatus.OK,
     message: 'User fetched successfull.',
-    data: result
+    data,
+    queryResult
   })
 })
 
-const createData = catchAsync(async (req: Request, res: Response) => {
+const createData = asyncHandler(async (req, res) => {
   const result = await service.createData(req.body)
 
-  apiResponse<Partial<IUser>>(res, {
+  res.status(200).json({
     success: true,
-    status: httpStatus.OK,
     message: 'User created successfull.',
     data: result
   })
 })
 
-const login = catchAsync(async (req: Request, res: Response) => {
+const login = asyncHandler(async (req, res) => {
   const result = await service.login(req.body)
 
-  apiResponse<Partial<IUser>>(res, {
+  res.status(200).json({
     success: true,
-    status: httpStatus.OK,
     message: 'User login successfull.',
     data: result
   })

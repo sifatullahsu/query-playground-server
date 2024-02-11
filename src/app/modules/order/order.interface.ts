@@ -1,20 +1,18 @@
 import { Model, Types } from 'mongoose'
 
 export type IOrder = {
-  book: Types.ObjectId
-  bookInfo: {
+  title: string
+  book_id: Types.ObjectId
+  book_details: {
     title: string
     price: number
     language: string
-    author: Types.ObjectId | null
-    publisher: Types.ObjectId | null
-    category: Types.ObjectId | null
-    tags: Types.ObjectId[] | null
+    category_id: Types.ObjectId
+    tag_ids: Types.ObjectId[]
   }
-  seller: Types.ObjectId
-  buyer: Types.ObjectId
-  purchasePrice: number
-  transactionId: string
+  transaction_id: string
+  seller_id: Types.ObjectId
+  buyer_id: Types.ObjectId
 }
 
 export type IOrderModel = Model<IOrder>

@@ -1,18 +1,14 @@
 import { Model, Types } from 'mongoose'
-import { ILanguage } from '../../../global/types'
+import { ILanguage } from '../../../interface/main'
 
 export type IBook = {
   title: string
-  slug: string
-  image: string
+  description: string
   price: number
-  stock: number
   language: ILanguage
-  author: Types.ObjectId
-  publisher?: Types.ObjectId
-  category?: Types.ObjectId
-  tags?: Types.ObjectId[]
-  seller: Types.ObjectId
+  category_id: Types.ObjectId
+  tag_ids: Types.ObjectId[]
+  seller_id: Types.ObjectId
 }
 
 export type IBookModel = Model<IBook>

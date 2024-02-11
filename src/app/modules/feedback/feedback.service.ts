@@ -1,5 +1,4 @@
-import { ICreateData, IGetAll, IGetData } from '../../../global/types'
-import { User } from '../user/user.model'
+import { ICreateData, IGetAll, IGetData } from '../../../interface/main'
 import { IFeedback } from './feedback.interface'
 import { Feedback } from './feedback.model'
 
@@ -12,25 +11,19 @@ const getAllData: IGetAll<IFeedback> = async queryResult => {
 
   return {
     meta: { page, limit, count },
-    queryResult,
-    result
+    data: result
   }
 }
 
-const getData: IGetData<IFeedback> = async id => {
-  const query = { _id: id }
-  const result = await Feedback.findOne(query)
+const getData: IGetData<IFeedback> = async (id, queryResult) => {
+  const { select, populate } = queryResult
+  const result = await Feedback.findById(id, select, { populate })
 
-  return result
+  return { data: result }
 }
 
 const createData: ICreateData<IFeedback> = async data => {
-  const seller = await User.countDocuments({ _id: data.user })
-  if (!seller) throw new Error('User ID is not valid.')
-
-  const result = await Feedback.create(data)
-
-  return result
+  return await Feedback.create(data)
 }
 
 export const FeedbackService = {

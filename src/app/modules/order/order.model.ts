@@ -1,23 +1,21 @@
 import { Schema, model } from 'mongoose'
-import { xLanguage } from '../../../global/constant'
+import { xLanguage } from '../book/book.model'
 import { IOrder, IOrderModel } from './order.interface'
 
 const bookSchema = new Schema<IOrder, IOrderModel>(
   {
-    book: { type: Schema.Types.ObjectId, ref: 'Book', required: true },
-    bookInfo: {
+    title: { type: String, required: true },
+    book_id: { type: Schema.Types.ObjectId, required: true, ref: 'Book' },
+    book_details: {
       title: { type: String, required: true },
       price: { type: String, required: true },
       language: { type: String, enum: xLanguage, required: true },
-      author: { type: Schema.Types.ObjectId, ref: 'Author', required: true },
-      publisher: { type: Schema.Types.ObjectId, ref: 'Publisher', required: true },
-      category: { type: Schema.Types.ObjectId, ref: 'Category', required: true },
-      tags: [{ type: Schema.Types.ObjectId, ref: 'Tag', required: true }]
+      category_id: { type: Schema.Types.ObjectId, required: true, ref: 'Category' },
+      tag_ids: [{ type: Schema.Types.ObjectId, required: true, ref: 'Tag' }]
     },
-    seller: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-    buyer: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-    purchasePrice: { type: Number, required: true, min: 0 },
-    transactionId: { type: String, required: true }
+    transaction_id: { type: String, required: true },
+    seller_id: { type: Schema.Types.ObjectId, required: true, ref: 'User' },
+    buyer_id: { type: Schema.Types.ObjectId, required: true, ref: 'User' }
   },
   {
     timestamps: true,

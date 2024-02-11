@@ -1,15 +1,15 @@
 import { NextFunction, Request, Response } from 'express'
-import config from '../../../config'
-import { IJwtUser } from '../../../interface'
-import { verifyToken } from '../../../shared/files/jwtHelper'
+import config from '../../config'
+import { IJwtUser } from '../../interface'
+import { User } from '../modules/user/user.model'
 
-const reqUser = () => {
+export const reqUser = () => {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
       const token = req.headers.authorization
 
       if (token) {
-        const verify = verifyToken(token, config.jwt.secret as string)
+        const verify = User.verifyToken(token, config.jwt.secret as string)
         req.user = verify as IJwtUser
       } else {
         req.user = null
@@ -22,5 +22,3 @@ const reqUser = () => {
     }
   }
 }
-
-export default reqUser

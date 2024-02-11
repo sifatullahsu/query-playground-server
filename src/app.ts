@@ -1,7 +1,7 @@
 import cors from 'cors'
 import express, { Application, Request, Response } from 'express'
-import httpStatus from 'http-status'
-import { errorHandler, reqUser } from './app/middlewares'
+import errorHandler from './app/middlewares/errorHandler'
+import { reqUser } from './app/middlewares/reqUser'
 import AppRouter from './app/routes'
 
 const app: Application = express()
@@ -18,7 +18,7 @@ app.use(errorHandler)
 
 // 404 Route Handler
 app.use((req: Request, res: Response) => {
-  res.status(httpStatus.NOT_FOUND).json({
+  res.status(404).json({
     success: false,
     message: 'Not Found',
     errorMessages: [

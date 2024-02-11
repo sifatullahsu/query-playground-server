@@ -1,8 +1,5 @@
 import { ErrorRequestHandler } from 'express'
 import mongoose from 'mongoose'
-import ApiError from '../../../error/ApiError'
-import handleCastError from '../../../error/handleCastError'
-import handleValidationError from '../../../error/handleValidationError'
 
 type IErrorMessages = {
   path: string | number
@@ -26,17 +23,6 @@ const errorHandler: ErrorRequestHandler = (error, req, res, next) => {
     status = simplified.status
     message = simplified.message
     errorMessages = simplified.errorMessages
-  } else if (error instanceof ApiError) {
-    status = error.status
-    message = error.message
-    errorMessages = error?.message
-      ? [
-          {
-            path: '',
-            message: error?.message
-          }
-        ]
-      : []
   } else if (error instanceof Error) {
     message = error.message
     errorMessages = error?.message
@@ -58,3 +44,35 @@ const errorHandler: ErrorRequestHandler = (error, req, res, next) => {
 }
 
 export default errorHandler
+
+const handleCastError = (error: mongoose.Error.CastError) => {
+  const errorMessages = [
+    {
+      path: error.path,
+      message: 'Invalid Object ID'
+    }
+  ]
+
+  return {
+    status: 400,
+    message: 'Cast Error',
+    errorMessages
+  }
+}
+
+const handleValidationError = (error: mongoose.Error.ValidationError) => {
+  const errorMessages = Object.values(error.errors).map(
+    (el: mongoose.Error.ValidatorError | mongoose.Error.CastError) => {
+      return {
+        path: el?.path,
+        message: el?.message
+      }
+    }
+  )
+
+  return {
+    status: 400,
+    message: 'Validation Error',
+    errorMessages
+  }
+}

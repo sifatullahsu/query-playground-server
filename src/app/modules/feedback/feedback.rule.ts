@@ -1,13 +1,13 @@
 import { AuthRules } from 'mongoose-query-maker'
-import { IRole } from '../../../global/types'
+import { IRole } from '../../../interface/main'
 import { IFeedback } from './feedback.interface'
 
 export const feedbackAuthRules: AuthRules<IFeedback, IRole> = {
   authentication: [
     [['admin'], 'OPEN'],
-    [['buyer', 'seller'], ['user']]
+    [['buyer', 'seller'], ['user_id']]
   ],
-  query: [['user', ['$eq']]],
+  query: [['user_id', ['$eq']]],
   select: [],
-  populate: [['user', ['password']]]
+  populate: [['user_id', ['password']]]
 }

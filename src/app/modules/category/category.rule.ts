@@ -1,5 +1,5 @@
 import { AuthRules } from 'mongoose-query-maker'
-import { IRole } from '../../../global/types'
+import { IRole } from '../../../interface/main'
 import { ICategory } from './category.interface'
 
 export const categoryAuthRules: AuthRules<ICategory, IRole> = {

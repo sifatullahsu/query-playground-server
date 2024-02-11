@@ -1,43 +1,38 @@
-import { Request, Response } from 'express'
-import httpStatus from 'http-status'
-import { queryMaker } from 'mongoose-query-maker'
-import apiResponse from '../../../shared/files/apiResponse'
-import catchAsync from '../../../shared/files/catchAsync'
-import { orderAuthRules } from './order.constant'
-import { IOrder } from './order.interface'
+import asyncHandler from 'express-async-handler'
+import { queryMaker, querySelector } from 'mongoose-query-maker'
+import { orderAuthRules } from './order.rule'
 import { OrderService as service } from './order.service'
 
-const getAllData = catchAsync(async (req: Request, res: Response) => {
-  const options = queryMaker(req.query, req.user, orderAuthRules)
-  const { result, meta, queryResult } = await service.getAllData(options)
+const getAllData = asyncHandler(async (req, res) => {
+  const queryResult = queryMaker(req.query, req.user, orderAuthRules)
+  const { meta, data } = await service.getAllData(queryResult)
 
-  apiResponse<IOrder[]>(res, {
+  res.status(200).json({
     success: true,
-    status: httpStatus.OK,
     message: 'Orders fetched successfull.',
-    data: result,
     meta,
+    data,
     queryResult
   })
 })
 
-const getData = catchAsync(async (req: Request, res: Response) => {
-  const result = await service.getData(req.params.id)
+const getData = asyncHandler(async (req, res) => {
+  const queryResult = querySelector(req.query, orderAuthRules)
+  const { data } = await service.getData(req.params.id, queryResult)
 
-  apiResponse<IOrder>(res, {
+  res.status(200).json({
     success: true,
-    status: httpStatus.OK,
     message: 'Order fetched successfull.',
-    data: result
+    data,
+    queryResult
   })
 })
 
-const createData = catchAsync(async (req: Request, res: Response) => {
+const createData = asyncHandler(async (req, res) => {
   const result = await service.createData(req.body)
 
-  apiResponse<Partial<IOrder>>(res, {
+  res.status(200).json({
     success: true,
-    status: httpStatus.OK,
     message: 'Order created successfull.',
     data: result
   })

@@ -5,7 +5,7 @@ const feedbackSchema = new Schema<IFeedback, IFeedbackModel>(
   {
     title: { type: String, required: true },
     description: { type: String, required: true },
-    user: { type: Schema.Types.ObjectId, ref: 'User', required: true }
+    user_id: { type: Schema.Types.ObjectId, required: true, ref: 'User' }
   },
   {
     timestamps: true,

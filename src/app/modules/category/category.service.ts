@@ -1,4 +1,4 @@
-import { ICreateData, IGetAll, IGetData } from '../../../global/types'
+import { ICreateData, IGetAll, IGetData } from '../../../interface/main'
 import { ICategory } from './category.interface'
 import { Category } from './category.model'
 
@@ -11,22 +11,19 @@ const getAllData: IGetAll<ICategory> = async queryResult => {
 
   return {
     meta: { page, limit, count },
-    queryResult,
-    result
+    data: result
   }
 }
 
-const getData: IGetData<ICategory> = async id => {
-  const query = { _id: id }
-  const result = await Category.findOne(query)
+const getData: IGetData<ICategory> = async (id, queryResult) => {
+  const { select, populate } = queryResult
+  const result = await Category.findById(id, select, { populate })
 
-  return result
+  return { data: result }
 }
 
 const createData: ICreateData<ICategory> = async data => {
-  const result = await Category.create(data)
-
-  return result
+  return await Category.create(data)
 }
 
 export const CategoryService = {

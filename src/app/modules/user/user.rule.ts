@@ -1,9 +1,9 @@
 import { AuthRules } from 'mongoose-query-maker'
-import { IRole } from '../../../global/types'
+import { IRole } from '../../../interface/main'
 import { IUser } from './user.interface'
 
 export const userAuthRules: AuthRules<IUser, IRole> = {
-  authentication: 'OPEN',
+  authentication: [[['admin'], 'OPEN']],
   query: [
     ['name', ['$regex']],
     ['email', ['$eq', '$ne']],

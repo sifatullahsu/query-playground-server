@@ -1,4 +1,4 @@
-import { ICreateData, IGetAll, IGetData } from '../../../global/types'
+import { ICreateData, IGetAll, IGetData } from '../../../interface/main'
 import { Book } from '../book/book.model'
 import { User } from '../user/user.model'
 import { IOrder } from './order.interface'
@@ -13,35 +13,32 @@ const getAllData: IGetAll<IOrder> = async queryResult => {
 
   return {
     meta: { page, limit, count },
-    queryResult,
-    result
+    data: result
   }
 }
 
-const getData: IGetData<IOrder> = async id => {
-  const query = { _id: id }
-  const result = await Order.findOne(query)
+const getData: IGetData<IOrder> = async (id, queryResult) => {
+  const { select, populate } = queryResult
+  const result = await Order.findById(id, select, { populate })
 
-  return result
+  return { data: result }
 }
 
 const createData: ICreateData<IOrder> = async data => {
-  const book = await Book.findById(data.book)
-  const buyer = await User.findOne({ _id: data.buyer, role: 'buyer' })
+  const book = await Book.findById(data.book_id)
+  const buyer = await User.findOne({ _id: data.buyer_id, role: 'buyer' })
 
   if (!book) throw new Error('Book ID is not valid.')
   if (!buyer) throw new Error('Buyer ID is not valid.')
 
-  data.bookInfo = {
+  data.book_details = {
     title: book.title,
     price: book.price,
     language: book.language,
-    author: book.author,
-    publisher: book.publisher || null,
-    category: book.category || null,
-    tags: book.tags || null
+    category_id: book.category_id,
+    tag_ids: book.tag_ids
   }
-  data.seller = book.seller
+  data.seller_id = book.seller_id
 
   const result = await Order.create(data)
 
