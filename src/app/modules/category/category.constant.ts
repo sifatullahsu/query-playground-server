@@ -1,17 +1,10 @@
-import { IQueryMakerFields, IQuerySelectorFields } from 'mongoose-query-maker'
+import { AuthRules } from 'mongoose-query-maker'
 import { IRole } from '../../../global/types'
 import { ICategory } from './category.interface'
 
-export const publisherQuery: IQueryMakerFields<ICategory, IRole> = {
-  all: 'OPEN',
-  filter: [
-    ['title', ['$regex'], 'OPEN'],
-    ['slug', ['$eq', '$ne'], 'OPEN'],
-    ['image', ['$eq', '$ne'], 'OPEN']
-  ]
-}
-
-export const publisherSelector: IQuerySelectorFields = {
+export const categoryAuthRules: AuthRules<ICategory, IRole> = {
+  authentication: 'OPEN',
+  query: [['title', ['$regex']]],
   select: [],
   populate: []
 }

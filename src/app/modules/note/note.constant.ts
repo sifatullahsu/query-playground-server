@@ -1,17 +1,14 @@
-import { IQueryMakerFields, IQuerySelectorFields } from 'mongoose-query-maker'
+import { AuthRules } from 'mongoose-query-maker'
 import { IRole } from '../../../global/types'
 import { INote } from './note.interface'
 
-export const noteQuery: IQueryMakerFields<INote, IRole> = {
-  all: 'OPEN',
-  filter: [
-    ['title', ['$regex'], 'OPEN'],
-    ['description', ['$regex'], 'OPEN'],
-    ['user', ['$eq', '$ne'], 'OPEN']
-  ]
-}
-
-export const noteSelector: IQuerySelectorFields = {
+export const noteAuthRules: AuthRules<INote, IRole> = {
+  authentication: [[['admin', 'buyer', 'seller'], ['user']]],
+  query: [
+    ['title', ['$regex']],
+    ['description', ['$regex']],
+    ['user', ['$eq']]
+  ],
   select: [],
   populate: [['user', ['password']]]
 }

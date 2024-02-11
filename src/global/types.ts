@@ -1,5 +1,5 @@
 import { Types } from 'mongoose'
-import { IQueryMaker } from 'mongoose-query-maker'
+import { QueryMaker } from 'mongoose-query-maker'
 
 export type IRole = 'super_admin' | 'admin' | 'seller' | 'buyer'
 
@@ -9,9 +9,9 @@ export type IMeta = {
   count: number
 }
 
-export type IGetAll<T> = (data: IQueryMaker) => Promise<{
+export type IGetAll<T> = (data: QueryMaker) => Promise<{
   meta: IMeta
-  queryResult: IQueryMaker
+  queryResult: QueryMaker
   result: T[]
 }>
 

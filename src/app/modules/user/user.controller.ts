@@ -3,13 +3,13 @@ import httpStatus from 'http-status'
 import { queryMaker } from 'mongoose-query-maker'
 import apiResponse from '../../../shared/files/apiResponse'
 import catchAsync from '../../../shared/files/catchAsync'
-import { userQuery, userSelector } from './user.constant'
+import { userAuthRules } from './user.constant'
 import { IUser } from './user.interface'
 import { UserService as service } from './user.service'
 
 const getAllData = catchAsync(async (req: Request, res: Response) => {
-  const query = queryMaker(req.query, req.user, userQuery, userSelector)
-  const { result, meta, queryResult } = await service.getAllData(query)
+  const options = queryMaker(req.query, req.user, userAuthRules)
+  const { result, meta, queryResult } = await service.getAllData(options)
 
   apiResponse<IUser[]>(res, {
     success: true,

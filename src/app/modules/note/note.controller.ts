@@ -3,13 +3,13 @@ import httpStatus from 'http-status'
 import { queryMaker } from 'mongoose-query-maker'
 import apiResponse from '../../../shared/files/apiResponse'
 import catchAsync from '../../../shared/files/catchAsync'
-import { noteQuery, noteSelector } from './note.constant'
+import { noteAuthRules } from './note.constant'
 import { INote } from './note.interface'
 import { NoteService as service } from './note.service'
 
 const getAllData = catchAsync(async (req: Request, res: Response) => {
-  const query = queryMaker(req.query, req.user, noteQuery, noteSelector)
-  const { result, meta, queryResult } = await service.getAllData(query)
+  const options = queryMaker(req.query, req.user, noteAuthRules)
+  const { result, meta, queryResult } = await service.getAllData(options)
 
   apiResponse<INote[]>(res, {
     success: true,

@@ -3,12 +3,12 @@ import httpStatus from 'http-status'
 import { queryMaker } from 'mongoose-query-maker'
 import apiResponse from '../../../shared/files/apiResponse'
 import catchAsync from '../../../shared/files/catchAsync'
-import { publisherQuery, publisherSelector } from './category.constant'
+import { categoryAuthRules } from './category.constant'
 import { ICategory } from './category.interface'
 import { CategoryService as service } from './category.service'
 
 const getAllData = catchAsync(async (req: Request, res: Response) => {
-  const query = queryMaker(req.query, req.user, publisherQuery, publisherSelector)
+  const query = queryMaker(req.query, req.user, categoryAuthRules)
   const { result, meta, queryResult } = await service.getAllData(query)
 
   apiResponse<ICategory[]>(res, {

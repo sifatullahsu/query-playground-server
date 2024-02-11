@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import config from '../../../config'
-import { iJwtUser } from '../../../interface'
+import { IJwtUser } from '../../../interface'
 import { verifyToken } from '../../../shared/files/jwtHelper'
 
 const reqUser = () => {
@@ -10,7 +10,7 @@ const reqUser = () => {
 
       if (token) {
         const verify = verifyToken(token, config.jwt.secret as string)
-        req.user = verify as iJwtUser
+        req.user = verify as IJwtUser
       } else {
         req.user = null
       }

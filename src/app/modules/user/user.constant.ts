@@ -1,17 +1,14 @@
-import { IQueryMakerFields, IQuerySelectorFields } from 'mongoose-query-maker'
+import { AuthRules } from 'mongoose-query-maker'
 import { IRole } from '../../../global/types'
 import { IUser } from './user.interface'
 
-export const userQuery: IQueryMakerFields<IUser, IRole> = {
-  all: 'OPEN',
-  filter: [
-    ['name', ['$regex'], 'OPEN'],
-    ['email', ['$eq', '$ne'], 'OPEN'],
-    ['role', ['$eq', '$ne'], 'OPEN']
-  ]
-}
-
-export const userSelector: IQuerySelectorFields = {
+export const userAuthRules: AuthRules<IUser, IRole> = {
+  authentication: 'OPEN',
+  query: [
+    ['name', ['$regex']],
+    ['email', ['$eq', '$ne']],
+    ['role', ['$eq', '$ne']]
+  ],
   select: ['password'],
   populate: []
 }

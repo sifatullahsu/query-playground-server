@@ -1,7 +1,7 @@
 import { JwtPayload } from 'jsonwebtoken'
 import { IRole } from '../global/types'
 
-export type iJwtUser = JwtPayload & {
+export type IJwtUser = JwtPayload & {
   _id: string
   email: string
   role: IRole
@@ -11,7 +11,7 @@ declare global {
   namespace Express {
     // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     interface Request {
-      user: iJwtUser | null
+      user: IJwtUser | null
     }
   }
 }

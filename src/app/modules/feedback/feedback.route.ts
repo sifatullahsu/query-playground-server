@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { validateRole } from '../../middlewares'
-import { NoteController as controller } from './note.controller'
+import { FeedbackController as controller } from './feedback.controller'
 
 const router = Router()
 
@@ -8,4 +8,4 @@ router.get('/', controller.getAllData)
 router.get('/:id', controller.getData)
 router.post('/', validateRole(['super_admin']), controller.createData)
 
-export const NoteRoute = router
+export const FeedbackRoute = router

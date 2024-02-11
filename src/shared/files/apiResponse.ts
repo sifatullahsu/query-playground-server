@@ -1,12 +1,12 @@
 import { Response } from 'express'
-import { IQueryMaker } from 'mongoose-query-maker'
+import { QueryMaker } from 'mongoose-query-maker'
 import { IMeta } from '../../global/types'
 
 type IApiReponse<T> = {
   success: boolean
   status: number
   message: string
-  queryResult?: IQueryMaker
+  queryResult?: QueryMaker
   meta?: IMeta
   data: T | null
 }

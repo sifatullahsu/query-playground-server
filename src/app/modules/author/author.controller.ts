@@ -3,13 +3,13 @@ import httpStatus from 'http-status'
 import { queryMaker } from 'mongoose-query-maker'
 import apiResponse from '../../../shared/files/apiResponse'
 import catchAsync from '../../../shared/files/catchAsync'
-import { authorQuery, authorSelector } from './author.constant'
+import { authorAuthRules } from './author.constant'
 import { IAuthor } from './author.interface'
 import { AuthorService as service } from './author.service'
 
 const getAllData = catchAsync(async (req: Request, res: Response) => {
-  const query = queryMaker(req.query, req.user, authorQuery, authorSelector)
-  const { result, meta, queryResult } = await service.getAllData(query)
+  const options = queryMaker(req.query, req.user, authorAuthRules)
+  const { result, meta, queryResult } = await service.getAllData(options)
 
   apiResponse<IAuthor[]>(res, {
     success: true,

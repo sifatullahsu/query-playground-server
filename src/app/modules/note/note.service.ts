@@ -4,9 +4,8 @@ import { INote } from './note.interface'
 import { Note } from './note.model'
 
 const getAllData: IGetAll<INote> = async queryResult => {
-  const { query, pagination, selector } = queryResult
+  const { query, pagination, select, populate } = queryResult
   const { page, limit, skip, sort } = pagination
-  const { select, populate } = selector
 
   const result = await Note.find(query, select, { limit, skip, sort, populate })
   const count = await Note.countDocuments(query)

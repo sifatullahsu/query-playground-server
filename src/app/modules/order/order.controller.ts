@@ -3,13 +3,13 @@ import httpStatus from 'http-status'
 import { queryMaker } from 'mongoose-query-maker'
 import apiResponse from '../../../shared/files/apiResponse'
 import catchAsync from '../../../shared/files/catchAsync'
-import { orderQuery, orderSelector } from './order.constant'
+import { orderAuthRules } from './order.constant'
 import { IOrder } from './order.interface'
 import { OrderService as service } from './order.service'
 
 const getAllData = catchAsync(async (req: Request, res: Response) => {
-  const query = queryMaker(req.query, req.user, orderQuery, orderSelector)
-  const { result, meta, queryResult } = await service.getAllData(query)
+  const options = queryMaker(req.query, req.user, orderAuthRules)
+  const { result, meta, queryResult } = await service.getAllData(options)
 
   apiResponse<IOrder[]>(res, {
     success: true,

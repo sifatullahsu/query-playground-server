@@ -5,9 +5,8 @@ import { IOrder } from './order.interface'
 import { Order } from './order.model'
 
 const getAllData: IGetAll<IOrder> = async queryResult => {
-  const { query, pagination, selector } = queryResult
+  const { query, pagination, populate, select } = queryResult
   const { page, limit, skip, sort } = pagination
-  const { select, populate } = selector
 
   const result = await Order.find(query, select, { limit, skip, sort, populate })
   const count = await Order.countDocuments(query)
