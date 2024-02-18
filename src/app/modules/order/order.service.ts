@@ -31,6 +31,9 @@ const createData: ICreateData<IOrder> = async data => {
   if (!book) throw new Error('Book ID is not valid.')
   if (!buyer) throw new Error('Buyer ID is not valid.')
 
+  const random = () => Math.floor(1000000000 + Math.random() * 9000000000).toString()
+
+  data.title = `Order ID: #${random()}`
   data.book_details = {
     title: book.title,
     price: book.price,
@@ -39,6 +42,7 @@ const createData: ICreateData<IOrder> = async data => {
     tag_ids: book.tag_ids
   }
   data.seller_id = book.seller_id
+  data.transaction_id = random()
 
   const result = await Order.create(data)
 

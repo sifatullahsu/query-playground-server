@@ -869,7 +869,7 @@ etag@~1.8.1:
 
 express-async-handler@^1.2.0:
   version "1.2.0"
-  resolved "https://registry.yarnpkg.com/express-async-handler/-/express-async-handler-1.2.0.tgz#ffc9896061d90f8d2e71a2d2b8668db5b0934391"
+  resolved "https://registry.npmjs.org/express-async-handler/-/express-async-handler-1.2.0.tgz"
   integrity sha512-rCSVtPXRmQSW8rmik/AIb2P0op6l7r1fMW538yyvTMltCO4xQEWMmobfrIxN2V1/mVrgxB8Az3reYF6yUZw37w==
 
 express@^4.18.2:
@@ -1492,10 +1492,10 @@ mongodb@6.2.0:
     bson "^6.2.0"
     mongodb-connection-string-url "^2.6.0"
 
-mongoose-query-maker@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/mongoose-query-maker/-/mongoose-query-maker-3.0.1.tgz#105dd262836bc86e871db44ceb831e8d37a2afb4"
-  integrity sha512-GqUuYSpFOnsAh7/sSx6TKGJQvzySwyEJqHRMGndP03uURlYfy+Dahv5c8GHSU/pATNysEDPecRnWALSTJZMh4g==
+mongoose-query-maker@3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/mongoose-query-maker/-/mongoose-query-maker-3.0.2.tgz#cb6ccff29f9ee726c674821969bb95c7c0fa375c"
+  integrity sha512-Ue3KJciEHWPf0b7Ke9VDk4r4gRr0WZsoSlT5qWYMa3DR9/BxV0ptp6IbNHEoXdq8sD4s2cd7JLxRia4tBsd5kg==
 
 mongoose@^8.0.0:
   version "8.0.0"

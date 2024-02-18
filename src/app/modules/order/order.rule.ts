@@ -16,7 +16,6 @@ export const orderAuthRules: AuthRules<IOrder, IRole> = {
     ['book_details.language', ['$eq', '$ne']],
     ['book_details.category_id', ['$eq', '$ne']],
     ['book_details.tag_ids', ['$in', '$nin']],
-    ['transaction_id', ['$eq', '$ne']],
     ['seller_id', ['$eq', '$ne']],
     ['buyer_id', ['$eq', '$ne']]
   ],

@@ -8,7 +8,7 @@ const bookSchema = new Schema<IOrder, IOrderModel>(
     book_id: { type: Schema.Types.ObjectId, required: true, ref: 'Book' },
     book_details: {
       title: { type: String, required: true },
-      price: { type: String, required: true },
+      price: { type: Number, required: true },
       language: { type: String, enum: xLanguage, required: true },
       category_id: { type: Schema.Types.ObjectId, required: true, ref: 'Category' },
       tag_ids: [{ type: Schema.Types.ObjectId, required: true, ref: 'Tag' }]
